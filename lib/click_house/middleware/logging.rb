@@ -10,7 +10,7 @@ module ClickHouse
 
       attr_reader :logger, :starting
 
-      def initialize(app = nil, logger:)
+      def initialize(app = nil, logger)
         @logger = logger
         super(app)
       end

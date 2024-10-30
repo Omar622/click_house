@@ -64,10 +64,10 @@ module ClickHouse
         end
 
         conn.response Middleware::RaiseError
-        conn.response Middleware::Logging, logger: config.logger!
-        conn.response Middleware::SummaryMiddleware, options: { config: config } # should be after logger
-        conn.response config.json_parser, content_type: %r{application/json}, options: { config: config }
-        conn.response Middleware::ParseCsv, content_type: %r{text/csv}, options: { config: config }
+        conn.response Middleware::Logging, config.logger!
+        conn.response Middleware::SummaryMiddleware, { config: config } # should be after logger
+        conn.response config.json_parser, { config: config }, %r{application/json}
+        conn.response Middleware::ParseCsv, { config: config }, %r{text/csv}
         conn.adapter config.adapter
       end
     end
